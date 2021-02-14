@@ -18,6 +18,7 @@
   <properties>
     <java.version>11</java.version>
     <camel.version>3.7.2</camel.version>
+    <docker.maven.plugin.version>0.34.1</docker.maven.plugin.version>
   </properties>
 
   <dependencies>
@@ -39,6 +40,25 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>io.fabric8</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>${docker.maven.plugin.version}</version>
+        <configuration>
+          <images>
+            <image>
+              <name>tadayosi/camel-springboot-hello</name>
+              <build>
+                <from>adoptopenjdk/openjdk11:ubi-minimal</from>
+                <assembly>
+                  <descriptorRef>artifact</descriptorRef>
+                </assembly>
+                <cmd>java -jar maven/${project.artifactId}-${project.version}.jar</cmd>
+              </build>
+            </image>
+          </images>
+        </configuration>
       </plugin>
     </plugins>
   </build>

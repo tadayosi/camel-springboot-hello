@@ -18,7 +18,10 @@
   <properties>
     <java.version>11</java.version>
     <camel.version>3.7.2</camel.version>
+    <jkube.version>1.1.0</jkube.version>
     <docker.maven.plugin.version>0.34.1</docker.maven.plugin.version>
+
+    <jkube.generator.name>tadayosi/%a:%v</jkube.generator.name>
   </properties>
 
   <dependencies>
@@ -42,6 +45,37 @@
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
       <plugin>
+        <groupId>org.eclipse.jkube</groupId>
+        <artifactId>kubernetes-maven-plugin</artifactId>
+        <version>${jkube.version}</version>
+        <executions>
+          <execution>
+            <id>jkube</id>
+            <goals>
+              <goal>resource</goal>
+              <goal>build</goal>
+              <goal>helm</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.eclipse.jkube</groupId>
+        <artifactId>openshift-maven-plugin</artifactId>
+        <version>${jkube.version}</version>
+        <executions>
+          <execution>
+            <id>jkube</id>
+            <goals>
+              <goal>resource</goal>
+              <goal>build</goal>
+              <goal>helm</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- Deprecated -->
+      <plugin>
         <groupId>io.fabric8</groupId>
         <artifactId>docker-maven-plugin</artifactId>
         <version>${docker.maven.plugin.version}</version>
@@ -60,6 +94,24 @@
           </images>
         </configuration>
       </plugin>
+      <!-- Deprecated -->
+      <!--
+      <plugin>
+        <groupId>io.fabric8</groupId>
+        <artifactId>fabric8-maven-plugin</artifactId>
+        <version>3.5.42</version>
+        <executions>
+          <execution>
+            <id>fmp</id>
+            <goals>
+              <goal>resource</goal>
+              <goal>helm</goal>
+              <goal>build</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      -->
     </plugins>
   </build>
 

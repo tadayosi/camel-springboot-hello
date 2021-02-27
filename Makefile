@@ -35,3 +35,6 @@ oc-deploy:
 # deprecated
 fabric8-setup:
 	mvn io.fabric8:fabric8-maven-plugin:3.5.42:setup
+
+itests:
+	mvn verify -P itests
